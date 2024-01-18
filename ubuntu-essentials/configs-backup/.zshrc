@@ -51,7 +51,11 @@ export ZSH="$HOME/.oh-my-zsh"
 # 多窗口共享历史命令配置
 setopt inc_append_history
 setopt share_history
-
+setopt appendhistory
+#setopt INC_APPEND_HISTORY
+#setopt SHARE_HISTORY
+HISTSIZE=100000
+SAVEHIST=100000
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
