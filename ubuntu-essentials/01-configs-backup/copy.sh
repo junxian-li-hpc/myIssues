@@ -44,11 +44,30 @@ copy_src2dst() {
 # 调用make_bkup_dir函数来创建备份文件夹
 make_bkup_dir
 
-# 调用函数来复制和备份.vimrc文件
-copy_src2dst .vimrc ~/.vimrc
-copy_src2dst .bashrc ~/.bashrc
-source ~/.bashrc
-copy_src2dst .tmux.conf ~/.tmux.conf
-tmux source ~/.tmux.conf
+# 检查参数数量
+if [ $# -eq 0 ]; then
+    echo "没有传递参数"
+    
+    # 调用函数来复制和备份.vimrc文件
+    copy_src2dst .vimrc ~/.vimrc
+    copy_src2dst .bashrc ~/.bashrc
+    source ~/.bashrc
+    copy_src2dst .tmux.conf ~/.tmux.conf
+    tmux source ~/.tmux.conf
 
-copy .p10k.zsh ~/.p10k.zsh
+    copy_src2dst .p10k.zsh ~/.p10k.zsh
+    copy_src2dst .zprofile ~/.zprofile
+
+    source ../03-zsh-directory/offline_install_zsh_ohmyzsh.sh 0
+    export_zsh_to_bashrc
+else
+    # 检查参数值
+    if [ "$1" -eq 0 ]; then
+        echo "参数值为0"
+
+    else
+        echo "参数值不为0"
+    fi
+fi
+
+

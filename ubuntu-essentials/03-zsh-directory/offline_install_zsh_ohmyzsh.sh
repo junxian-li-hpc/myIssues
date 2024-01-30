@@ -24,7 +24,7 @@ install_zsh() {
 
 # 复制源文件到目标文件，并备份目标文件
 export_zsh_to_bashrc() {
-
+    cd $script_dir
     new_path='$HOME/Applications/zsh-5.9/bin'
 
     # 检查.bashrc中是否已经存在相同的PATH设置
@@ -40,6 +40,7 @@ export_zsh_to_bashrc() {
 
 
 install_oh_my_zsh() {
+    cd $script_dir
     # OH_MY_ZSH的路径
     ohmyzsh_path=./oh-my-zsh
     cd $ohmyzsh_path
@@ -62,16 +63,22 @@ install_oh_my_zsh() {
     ./install.sh
 
     dos2unix ~/.oh-my-zsh/lib/spectrum.zsh 
+    file="$HOME/.oh-my-zsh/lib/spectrum.zsh"
+    output_file="$HOME/.oh-my-zsh/lib/spectrum.zsh"
+    tr -d '\r' < "$file" > "$output_file"
+
     # find $HOME/.oh-my-zsh -type f -exec dos2unix {} \;
 
     echo "--------------------------$PWD-------------------------"
     cd ../../..
-    source ../01-configs-backup/copy.sh
+    source ../01-configs-backup/copy.sh 0
     copy_src2dst ../01-configs-backup/.zshrc ~/.zshrc
 }
 
 install_plugins()
 {
+    cd $script_dir
+
     # 安装插件,将本地的文件夹移动
     # zsh-autosuggestions
     find ./plugins -type f -print0 | xargs -0 dos2unix
@@ -85,10 +92,25 @@ install_plugins()
     
 }
 
-install_zsh
-export_zsh_to_bashrc
-source ~/.bashrc
+script_dir=$(dirname "$0")
+echo "脚本所在目录：$script_dir"
 
-install_oh_my_zsh
+# 检查参数数量
+if [ $# -eq 0 ]; then
+    echo "没有传递参数"
+    
+    install_zsh
+    export_zsh_to_bashrc
+    source ~/.bashrc
 
-install_plugins
+    install_oh_my_zsh
+
+    install_plugins
+else
+    # 检查参数值
+    if [ "$1" -eq 0 ]; then
+        echo "参数值为0"
+    else
+        echo "参数值不为0"
+    fi
+fi

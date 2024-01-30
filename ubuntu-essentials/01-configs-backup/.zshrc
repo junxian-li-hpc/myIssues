@@ -60,3 +60,4 @@ SAVEHIST=100000
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 export HIST_STAMPS="mm/dd/yyyy"
+
