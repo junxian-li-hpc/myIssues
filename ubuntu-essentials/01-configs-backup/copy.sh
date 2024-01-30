@@ -50,3 +50,5 @@ copy_src2dst .bashrc ~/.bashrc
 source ~/.bashrc
 copy_src2dst .tmux.conf ~/.tmux.conf
 tmux source ~/.tmux.conf
+
+copy .p10k.zsh ~/.p10k.zsh

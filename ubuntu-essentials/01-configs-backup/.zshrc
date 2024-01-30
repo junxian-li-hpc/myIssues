@@ -9,7 +9,7 @@ fi
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 #oh-my-zsh的安装路径（zsh的配置路径）
-ZSH="/home/ljx/.oh-my-zsh"
+ZSH="${HOME}/.oh-my-zsh"
 # 设置字体模式以及配置命令行的主题
 POWERLEVEL9K_MODE='nerdfont-complete'
 #ZSH_THEME="agnoster" #我目前使用的模式
