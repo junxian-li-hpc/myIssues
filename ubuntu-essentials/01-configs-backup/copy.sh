@@ -18,7 +18,8 @@ copy_src2dst() {
     target_file="$2"
 
     dos2unix "$src_file"
-
+# explain dos2unix
+# dos2unix命令用于将DOS格式的文本文件转换成UNIX格式的文本文件。在DOS/Windows中，每行结尾是“回车+换行”，即“\r\n”，而在UNIX中，每行结尾只有“换行”，即“\n”。dos2unix命令可以将DOS格式的文本文件转换成UNIX格式的文本文件，也可以将UNIX格式的文本文件转换成DOS格式的文本文件。
     # 如果目标文件不存在，则直接创建
     if [[ ! -f $target_file ]]; then
         cp "$src_file" "$target_file"
@@ -28,6 +29,19 @@ copy_src2dst() {
         
         #获取 target_file的文件名字
         backup_file="$backup_dir/$(basename $target_file)_$(date +%Y_%m_%d_%H_%M_%S)"
+        #explain $(date+%Y_%m_%d_%H_%M_%S)
+        # %Y: year
+        # %m: month
+        # %d: day
+        # %H: hour
+        # %M: minute
+        # %S: second
+        
+
+        # explain basename
+        # basename命令用于从路径中提取文件名或目录名，常用的选项有-suffix和-prefix，分别用于删除后缀和前缀。 
+        #ubuntu-essentials/01-configs-backup/.bashrc
+
         cp "$target_file" "$backup_file"
         echo "Successfully backed up $target_file to $backup_file."
 
@@ -60,6 +74,7 @@ if [ $# -eq 0 ]; then
 
     source ../03-zsh-directory/offline_install_zsh_ohmyzsh.sh 0
     export_zsh_to_bashrc
+    write_zsh_to_tmux_conf
 else
     # 检查参数值
     if [ "$1" -eq 0 ]; then
