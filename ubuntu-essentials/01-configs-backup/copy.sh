@@ -65,10 +65,12 @@ if [ $# -eq 0 ]; then
     # 调用函数来复制和备份.vimrc文件
     copy_src2dst .vimrc ~/.vimrc
     copy_src2dst .bashrc ~/.bashrc
+    copy_src2dst .profile ~/.profile
     source ~/.bashrc
     copy_src2dst .tmux.conf ~/.tmux.conf
     tmux source ~/.tmux.conf
 
+    
     copy_src2dst .p10k.zsh ~/.p10k.zsh
     copy_src2dst .zprofile ~/.zprofile
 

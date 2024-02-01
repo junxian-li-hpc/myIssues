@@ -41,7 +41,15 @@ export_zsh_to_bashrc() {
             echo "PATH already exists in .bashrc"
         fi
     fi
-    
+    将执行zsh添加到.profile里
+    if ! (grep -v '^#'  ~/.profile | grep -qF "exec zsh -l"); then
+        # 将新的PATH设置添加到.bashrc
+        echo "exec zsh -l" >> ~/.profile
+        echo "Added exec zsh -l to .profile"
+    else
+        echo "exec zsh -l already exists in .profile"
+    fi
+    # [ -f $HOME/Applications/zsh-5.7.1/bin/zsh ] && exec $HOME/Applications/zsh-5.7.1/bin/zsh -l
 }
 
 # 写一个函数，将 默认启用zsh的命令写入 .tmux.conf
