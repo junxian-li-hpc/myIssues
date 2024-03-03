@@ -10,14 +10,14 @@ install_zsh() {
         
         # 解压，这里下载下来的是xz格式，要先用xz解压一遍，再用tar解压。
         # tar -xvf zsh.tar.xz
-        xz -d zsh.tar.xz
-        tar -xvf zsh.tar
+        xz -d zsh.tar.xz >/dev/null 2>&1
+        tar -xvf zsh.tar >/dev/null 2>&1
         cd zsh-5.9        # 注意这个版本号要根据自己的实际情况来
         
         # 配置与编译。--prefix选项指定安装目录
-        ./configure --prefix=$HOME/Applications/zsh-5.9
-        make
-        make install
+        ./configure --prefix=$HOME/Applications/zsh-5.9 >/dev/null 2>&1
+        make >/dev/null 2>&1
+        make install >/dev/null 2>&1
         
         export_zsh_to_bashrc
     fi
@@ -41,7 +41,7 @@ export_zsh_to_bashrc() {
             echo "PATH already exists in .bashrc"
         fi
     fi
-    将执行zsh添加到.profile里
+    # 将执行zsh添加到.profile里
     if ! (grep -v '^#'  ~/.profile | grep -qF "exec zsh -l"); then
         # 将新的PATH设置添加到.bashrc
         echo "exec zsh -l" >> ~/.profile
@@ -85,14 +85,14 @@ install_oh_my_zsh() {
     cd $ohmyzsh_path
     echo $PWD
     rm -rf ohmyzsh
-    unzip ohmyzsh.zip
+    unzip ohmyzsh.zip >/dev/null 2>&1
     
-    dos2unix ./ohmyzsh-offline/offline_install.diff
+    dos2unix ./ohmyzsh-offline/offline_install.diff 
     cp ./ohmyzsh-offline/offline_install.diff ./ohmyzsh
     
     cd ohmyzsh
     #对目录下的所有文件使用dos2unix
-    find . -type f -print0 | xargs -0 dos2unix
+    find . -type f -print0 | xargs -0 dos2unix >/dev/null 2>&1
     
     git init
     git apply offline_install.diff
@@ -137,7 +137,7 @@ echo "脚本所在目录：$script_dir"
 # 检查参数数量
 if [ $# -eq 0 ]; then
     echo "没有传递参数"
-    
+    set -x
     install_zsh
     
     source ~/.bashrc
